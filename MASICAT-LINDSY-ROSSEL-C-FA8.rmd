@@ -126,3 +126,21 @@ assumed that downtime is normally distributed:
 (a) obtain bounds which will include 95% of the downtime of all the customers;
 
 (b) obtain the bound above which 10% of the downtime is included.
+
+```{r no2}
+
+meandwntm <- 25  # average downtime
+vrnce <- 144      # variance
+
+# Confidence interval bounds (95%)
+alpha <- 0.05  # significance level
+zScore <- qnorm(1 - alpha/2)  # z-score for 95% confidence interval
+marginOfError <- zScore * sqrt(vrnce)  # margin of error
+lowerBound <- meandwntm - marginOfError
+upperBound <- meandwntm + marginOfError
+
+quanBound <- qnorm(0.9, mean = meandwntm, sd = sqrt(vrnce))
+
+cat("95% of the downtime lies between", round(lowerBound, 2), "and", round(upperBound, 2), "minutes.\n")
+cat("Above", round(quanBound, 2), "minutes, 10% of the downtime is included.")
+```
